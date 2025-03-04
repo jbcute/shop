@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h1 class="logo">Dave's Karenderya</h1>
+            <div class="profile-pic">
+                <img src="c:\Users\johnb\OneDrive\Desktop\final project\imagess\logo.png" alt="Profile Picture" class="profile-image">
+            </div>
+            <div class="sidebar-menu">
+                <strong>DASHBOARD</strong>
+                <nav>
+                    <ul>
+                        <a href="#home" onclick="showSection('home')"><ion-icon name="home-outline"></ion-icon>Home</a></li>
+                        <a href="#about" onclick="showSection('about')"><ion-icon name="person-circle-outline"></ion-icon>About Us</a></li>
+                        <a href="#cart" onclick="showSection('cart')"><ion-icon name="cart-outline"></ion-icon>Cart</a></li>
+                        <a href="login.html" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon>Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="sidebar-footer">
+                <p>Follow us on:</p>
+                <a href="#">Facebook</a> | <a href="#">Instagram</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <div class="wrapper">
+                <div class="main-navbar">
+                    <div class="search" id="searchBar">
+                        <input type="text" placeholder="Search your favorite ulam" oninput="searchFood()">
+                        <button class="search-btn" onclick="searchFood()">Find Food</button>
+                    </div>
+                </div>
+                <div class="content">
+                    <div id="home" class="section" style="display: block;">
+                        <div class="main-highlight">
+                            <div class="main-header">
+                                <h2 class="main-title">Recommendations</h2>
+                            </div>
+                            <div class="highlight-wrapper" id="foodContainer">
+                                <div class="highlight-card" data-name="Menudo" data-price="50" data-img="imagess/menudo.jpg">
+                                    <img class="highlight-image" src="imagess/menudo.jpg" alt="Pork Menudo">
+                                    <div class="highlight-desc">
+                                        <h4>MENUDO</h4>
+                                        <p>&#8369;50</p>
+                                        <button class="add-to-cart-btn" onclick="addToCart('Menudo', 50, 'imagess/menudo.jpg')">Add to Cart</button>
+                                    </div>
+                                </div>
+                                <div class="highlight-card" data-name="Adobo" data-price="50" data-img="imagess/adobo.jpg">
+                                    <img class="highlight-image" src="imagess/adobo.jpg" alt="Adobo">
+                                    <div class="highlight-desc">
+                                        <h4>ADOBO</h4>
+                                        <p>&#8369;50</p>
+                                        <button class="add-to-cart-btn" onclick="addToCart('Adobo', 50, 'imagess/adobo.jpg')">Add to Cart</button>
+                                    </div>
+                                </div>
+                                <div class="highlight-card" data-name="Sinigang" data-price="50" data-img="imagess/sinigang.jpg">
+                                    <img class="highlight-image" src="imagess/sinigang.jpg" alt="Sinigang">
+                                    <div class="highlight-desc">
+                                        <h4>SINIGANG</h4>
+                                        <p>&#8369;50</p>
+                                        <button class="add-to-cart-btn" onclick="addToCart('Sinigang', 50, 'imagess/sinigang.jpg')">Add to Cart</button>
+                                    </div>
+                                </div>
+                                <div class="highlight-card" data-name="Kare Kare" data-price="50" data-img="imagess/kare kare.jpg">
+                                    <img class="highlight-image" src="imagess/kare kare.jpg" alt="Kare Kare">
+                                    <div class="highlight-desc">
+                                        <h4>KARE KARE</h4>
+                                        <p>&#8369;50</p>
+                                        <button class="add-to-cart-btn" onclick="addToCart('Kare Kare', 50, 'imagess/kare kare.jpg')">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="about" class="section" style="display: none;">
+                        <div class="about-content">
+                            <h1>About Us</h1>
+                            <p>Welcome to Dave's Karenderya! We are passionate about bringing you the best culinary experiences. Our mission is to provide delicious meals made from the freshest ingredients, ensuring that every bite is a delight.</p>
+                            <h2>Our Story</h2>
+                            <p>Founded in 2025, Dave's Karenderya started as a small kitchen with a big dream. Our founders, Dave Ejorango and John Benedict Vivas, wanted to create a place where people could enjoy authentic flavors and a warm atmosphere. Over the years, we have grown into a beloved local eatery, known for our commitment to quality and customer satisfaction.</p>
+                            <h2>Our Values</h2>
+                            <ul>
+                                <li>Quality: We use only the freshest ingredients.</li>
+                                <li>Community: We believe in giving back to our community.</li>
+                                <li>Passion: Our love for food drives everything we do.</li>
+                            </ul>
+                            <h2>Join Us!</h2>
+                            <p>We invite you to visit us and experience the joy of good food. Whether you're dining in or ordering out, we promise to make your meal memorable.</p>
+                        </div>
+                    </div>
+                    
+                    <div id="cart" class="section" style="display: none;">
+                        <div class="cart-content">
+                            <h1>Your Cart</h1>
+                            <ul id="cartItems"></ul>
+                            <div class="order-total" id="orderTotal"></div>
+                            <button class="order-btn" onclick="orderNow()">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <strong>2024 All rights reserved, Dave's Karenderya. Developed by Dave Ejorango, John Benedict Vivas</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        let cart = [];
+
+        function addToCart(item, price, img) {
+            cart.push({ item, price, img });
+            alert(item + " added to cart at price " + price);
+            updateCartDisplay(); // Update cart display whenever an item is added
+        }
+
+        function searchFood() {
+            const searchInput = document.querySelector('.search input').value.toLowerCase();
+            const foodItems = document.querySelectorAll('.highlight-card');
+
+            if (searchInput === '') {
+                foodItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                showSection('home');
+            } else {
+                let found = false;
+                foodItems.forEach(item => {
+                    const foodName = item.getAttribute('data-name').toLowerCase();
+                    if (foodName.includes(searchInput)) {
+                        item.style.display = 'block';
+                        found = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                if (!found) {
+                    showSection('home');
+                }
+            }
+        }
+
+        function showSection(section) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => {
+                sec.style.display = 'none'; // Hide all sections
+            });
+            document.getElementById(section).style.display = 'block'; // Show the selected section
+
+            // Show search bar only on home section
+            const searchBar = document.getElementById('searchBar');
+            if (section === 'home') {
+                searchBar.style.display = 'flex';
+            } else {
+                searchBar.style.display = 'none';
+            }
+
+            // Update cart display
+            if (section === 'cart') {
+                updateCartDisplay();
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const orderTotal = document.getElementById('orderTotal');
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<li>Your cart is empty</li>';
+                orderTotal.innerHTML = '';
+            } else {
+                cart.forEach((cartItem, index) => {
+                    const listItem = document.createElement('li');
+                    const img = document.createElement('img');
+                    img.src = cartItem.img;
+                    img.style.width = '50px';
+                    img.style.height = '50px';
+                    img.style.marginRight = '10px';
+                    listItem.appendChild(img);
+                    listItem.appendChild(document.createTextNode(`${cartItem.item}: ₱${cartItem.price}`));
+                    cartItems.appendChild(listItem);
+                    total += cartItem.price;
+                });
+                orderTotal.innerHTML = `Total: ₱${total}`;
+            }
+        }
+
+        function orderNow() {
+            if (cart.length === 0) {
+                alert("Your cart is empty. Please add items to your cart before ordering.");
+            } else {
+                alert("Order placed successfully!");
+                cart = []; // Clear the cart after ordering
+                updateCartDisplay(); // Update the cart display
+                showSection('home'); // Redirect to home//
+            }}     function logout() {
+            // Add logout functionality here
+        }
+    </script>
+</body>
+</html>

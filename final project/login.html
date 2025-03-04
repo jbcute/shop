@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOOD ORDER - HOME PAGE</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script>
+       function createAccount() {
+            console.log("Creating account, please wait!");
+            alert("Creating account, please wait!");
+            window.location.href = "create acc.html"; // Ensure the correct file name
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('loginForm').addEventListener("submit", (event) => {
+                event.preventDefault();
+                let username = document.getElementById('username').value;
+                let password = document.getElementById('password').value;
+                let web_usr_name = "johnbenedictvivas";
+                let web_pw = "12345678";
+
+                // Corrected the condition to check username and password
+                if (username === web_usr_name && password === web_pw) {
+                    alert("Almost ready!");
+                    window.location.href = "shop.html"; // Redirect to the main page
+                } else {
+                    alert("Try again");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h4 class="logo">Welcome</h4>
+        <nav class="navigation">
+        
+        </nav>
+    </header>
+    
+    <div class="login">
+        <img src="c:\Users\johnb\Downloads\logo.png" alt="Cute Bites Logo" class="logo">
+        <form id="loginForm" method="POST" action="https://example.com/login">
+            <h3>LOG IN</h3>
+            <h2>"Sweeten Your Day with Cute Bites of Deliciousness!"</h2>
+            <div class="form-group">
+                <label for="username"><ion-icon name="person-outline"></ion-icon> Username</label>
+                <input type="text" id="username" name="username" placeholder="Type your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><ion-icon name="key-outline"></ion-icon> Password</label>
+                <input type="password" id="password" name="password" placeholder="Type your password" required>
+            </div>
+            <button type="submit">Shop Now</button>
+        </form>
+        <p>Don't have an account? <button onclick="createAccount()">Go to Create Account Page</button></p>
+    </div>
+
+   
+</body>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Information Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pacifico', 'Arial', sans-serif;
+            transition: all 0.3s ease-in-out;
+        }
+
+        body {
+            background-color: #CFE3F0; /* Light blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: black;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #004d40; /* Dark teal */
+        }
+
+        form {
+            background-color: #7CA5BF; /* Lighter blue */
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #333; /* Dark gray */
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #F4CA32; /* Yellow */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            outline: none; /* Remove default outline */
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #BA3C54; /* Red */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #F4CA32; /* Yellow on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Delivery Information Form</h2>
+<form id="deliveryForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" required pattern="^\d{10}$" title="Phone number must be 10 digits">
+    <div class="error" id="phoneError"></div>
+    
+    <label for="pickup">Pickup or Delivery:</label>
+    <select id="pickup" required>
+        <option value="delivery">Delivery</option>
+        <option value="pickup">Pickup</option>
+    </select>
+
+    <div id="pickupDetails" style="display: none;">
+        <label for="pickupLocation">Pickup Location:</label>
+        <input type="text" id="pickupLocation" value="Antipolo" readonly>
+        
+        <label for="pickupTime">Pickup Time:</label>
+        <input type="datetime-local" id="pickupTime" required>
+    </div>
+
+    <div id="deliveryDetails" style="display: block;">
+        <label for="address">Address:</label>
+        <input type="text" id="address" required>
+        
+        <label for="city">City:</label>
+        <input type="text" id="city" required>
+        
+        <label for="state">State:</label>
+        <input type="text" id="state" required>
+        
+        <label for="zip">ZIP Code:</label>
+        <input type="text" id="zip" required>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+
+<div class="result" id="result"></div>
+
+<script>
+    document.getElementById('pickup').addEventListener('change', function() {
+        const pickupDetails = document.getElementById('pickupDetails');
+        const deliveryDetails = document.getElementById('deliveryDetails');
+        if (this.value === 'pickup') {
+            pickupDetails.style.display = 'block';
+            deliveryDetails.style.display = 'none';
+        } else {
+            pickupDetails.style.display = 'none';
+            deliveryDetails.style.display = 'block';
+        }
+    });
+
+    document.getElementById('deliveryForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Clear previous errors
+        document.getElementById('phoneError').textContent = "";
+
+        // Get form values
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const pickup = document.getElementById('pickup').value;
+
+        // Phone number validation
+        const phonePattern = /^\d{10}$/;
+        if (!phone.match(phonePattern)) {
+            document.getElementById('phoneError').textContent = "Phone number must be exactly 10 digits.";
+            return; // Stop form submission if phone is invalid
+        }
+
+        let resultHTML = `
+            <h3>Delivery Information</h3>
+            <p><strong>Customer Name:</strong> ${name}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+        `;
+
+        if (pickup === 'delivery') {
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            const zip = document.getElementById('zip').value;
+            const orderId = Math.floor(Math.random() * 10000); // Random order ID
+            const deliveryCode = `DEL-${orderId}-${zip}`;
+
+            resultHTML += `
+                <p><strong>Delivery Code:</strong> ${deliveryCode}</p>
+                <p><strong>Address:</strong> ${address}, ${city}, ${state} ${zip}</p>
+            `;
+        } else {
+            const pickupLocation = document.getElementById('pickupLocation').value;
+            const pickupTime = document.getElementById('pickupTime').value;
+
+            resultHTML += `
+                <p><strong>Pickup Location:</strong> ${pickupLocation}</p>
+                <p><strong>Pickup Time:</strong> ${pickupTime}</p>
+            `;
+        }
+
+        // Display the result
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = resultHTML;
+
+        // Show success alert and redirect to shop.html
+        alert("Successful");
+        window.location.href = "shop.html";
+    });
+</script>
+
+</body>
+</html>
